@@ -20,7 +20,7 @@ audio_router_settings.json
 svv_sessions.csv
 svv_rows.csv
 *.log
-
+*.pfx
 # IDE settings
 .vscode/
 .idea/
