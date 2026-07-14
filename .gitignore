@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Windows shortcuts/thumbs
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Application local files
+audio_router.lock
+audio_router_settings.json
+svv_sessions.csv
+svv_rows.csv
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# PyInstaller build files and outputs
+build/
+dist/
+*.spec

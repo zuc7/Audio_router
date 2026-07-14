@@ -1,0 +1,6 @@
+PySide6>=6.0.0
+Pillow>=8.0.0
+pycaw>=2023.04.07
+psutil>=5.8.0
+comtypes>=1.1.10
+pywin32>=301
