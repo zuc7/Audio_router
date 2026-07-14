@@ -29,3 +29,6 @@ svv_rows.csv
 build/
 dist/
 *.spec
+
+# Third-party tools (NirSoft SoundVolumeView — download manually)
+tools/

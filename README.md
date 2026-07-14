@@ -8,89 +8,113 @@
 
 **Audio App Router** è un'applicazione Windows moderna, scalabile e performante che consente di indirizzare l'audio di specifiche applicazioni (es. Spotify, Chrome, Discord) verso dispositivi di riproduzione diversi (es. Cuffie, Altoparlanti, Virtual Audio Cable).
 
-L'interfaccia grafica è stata riscritta utilizzando **PySide6 (Qt6)** per garantire scalabilità DPI automatica, una reattività eccezionale e un design scuro professionale e moderno.
+L'interfaccia grafica è stata costruita con **PySide6 (Qt6)** per garantire scalabilità DPI automatica, una reattività eccezionale e un design scuro professionale e moderno.
 
 ### ✨ Funzionalità
-- **Interfaccia Moderna (Qt6)**: Tema scuro elegante e coerente con scrollbar personalizzate, layout flessibili e angoli arrotondati.
-- **DPI Scaling & Splitter**: Layout scalabile con divisore centrale trascinabile (`QSplitter`) per adattarsi a schermi di qualsiasi dimensione.
-- **Riconoscimento App**: Mostra le icone reali delle applicazioni e i relativi PID.
-- **Filtro di Ricerca Rapido**: Barra di ricerca per filtrare all'istante le applicazioni in esecuzione (utilissimo con molte app aperte).
-- **Evidenziazione Dispositivo Predefinito**: Mostra un badge verde "Predefinito" sul dispositivo di sistema principale.
-- **Aggiornamento Automatico**: Rileva l'apertura o chiusura delle applicazioni audio ogni secondo, mantenendo la selezione corrente senza sfarfallio.
+- **Interfaccia Moderna (Qt6)**: Tema scuro elegante con scrollbar personalizzate, layout flessibile e angoli arrotondati.
+- **DPI Scaling & Splitter**: Layout scalabile con divisore centrale trascinabile per adattarsi a qualsiasi schermo.
+- **Icone App in Tempo Reale**: Mostra le icone reali dei processi in esecuzione e i relativi PID.
+- **Filtro di Ricerca Rapido**: Barra di ricerca per filtrare all'istante le applicazioni attive.
+- **Badge Dispositivo Predefinito**: Evidenzia il dispositivo audio predefinito del sistema.
+- **Aggiornamento Automatico**: Rileva apertura/chiusura delle app audio ogni secondo, preservando la selezione.
 - **Doppio Motore di Routing**:
-  - Utilizza l'interfaccia COM di Windows (`IPolicyConfig`) nativa.
-  - Supporta opzionalmente **SoundVolumeView** di NirSoft (se inserito in `tools/soundvolumeview/`) per una maggiore stabilità.
+  - COM nativo di Windows (`IPolicyConfig`) — funziona senza dipendenze esterne.
+  - **SoundVolumeView** di NirSoft (opzionale, per maggiore stabilità su alcune configurazioni).
+
+---
+
+### ⬇️ Download rapido (EXE precompilato)
+
+Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e scarica `AudioRouter.exe`.
+
+> ⚠️ Windows potrebbe mostrare un avviso SmartScreen. Clicca **Ulteriori informazioni → Esegui comunque**.
+
+---
 
 ### 📋 Requisiti
-- Windows 10 o Windows 11
-- Python 3.8+
+- Windows 10 / 11 (64-bit)
+- Python 3.8+ *(solo se esegui da sorgente)*
 
-### 🚀 Installazione
+### 🚀 Installazione (da sorgente)
+
 1. Clona la repository:
    ```bash
-   git clone https://github.com/tuo-username/audio_router.git
-   cd audio_router
+   git clone https://github.com/zuc7/Audio_router.git
+   cd Audio_router
    ```
-2. Installa le dipendenze necessarie:
+2. Installa le dipendenze:
    ```bash
    pip install -r requirements.txt
    ```
+3. **(Opzionale ma raccomandato)** Scarica **SoundVolumeView** da NirSoft:
+   - Link: https://www.nirsoft.net/utils/sound_volume_view.html
+   - Estrai `SoundVolumeView.exe` in `tools/soundvolumeview/SoundVolumeView.exe`
 
 ### 💻 Utilizzo
-Avvia l'applicazione eseguendo:
 ```bash
 python audio_router_gui.py
 ```
-
-1. Seleziona l'applicazione desiderata dall'elenco a sinistra (puoi usare la barra di ricerca in alto).
-2. Seleziona il dispositivo di riproduzione desiderato dall'elenco a destra.
-3. Clicca su **Applica Collegamento**.
-4. Per ripristinare il comportamento predefinito di un'applicazione, selezionala e clicca su **Ripristina Predefinito**.
+1. Seleziona l'app dall'elenco a sinistra (usa la barra di ricerca per filtrare).
+2. Seleziona il dispositivo di riproduzione a destra.
+3. Clicca **Applica Collegamento**.
+4. Per ripristinare il predefinito, clicca **Ripristina Predefinito**.
 
 ---
 
 ## English
 
-**Audio App Router** is a modern, scalable, and lightweight Windows application that lets you route the audio output of specific running applications (e.g., Spotify, Chrome, Discord) to different playback devices (e.g., Headphones, Speakers, Virtual Audio Cable).
+**Audio App Router** is a modern, scalable, lightweight Windows application to route audio output of specific running apps (e.g. Spotify, Chrome, Discord) to different playback devices (e.g. Headphones, Speakers, Virtual Audio Cable).
 
-The GUI has been written using **PySide6 (Qt6)** to provide automatic DPI scaling, fluid interactions, and a clean professional dark theme.
+The GUI is built with **PySide6 (Qt6)** for automatic DPI scaling, fluid interactions, and a clean professional dark theme.
 
 ### ✨ Features
-- **Modern Interface (Qt6)**: Sleek dark stylesheet with custom scrollbars, flexible grid spacing, and rounded corners.
-- **Scalable Splitter Layout**: Drag-resizable center divider (`QSplitter`) ensuring perfect visibility on any screen size.
-- **App Icon & PID Extraction**: Real-time extraction of running process icons and PIDs.
-- **Instant Search/Filter**: Search bar to instantly filter running processes, highly useful when managing many background tasks.
-- **Default Device Indicator**: Renders a clean green "Default" badge next to the current system default audio device.
-- **Auto-Refresh Loop**: Detects audio sessions opening/closing every second, preserving your current selection seamlessly.
+- **Modern Interface (Qt6)**: Sleek dark theme with custom scrollbars, flexible layout and rounded corners.
+- **Scalable Splitter Layout**: Drag-resizable center divider for any screen size.
+- **Real-Time App Icons**: Extracts and shows running process icons and PIDs.
+- **Instant Search/Filter**: Filter active apps instantly.
+- **Default Device Badge**: Highlights the current system default audio device.
+- **Auto-Refresh**: Detects audio sessions opening/closing every second, preserving selection.
 - **Dual Routing Backend**:
-  - Standard native Windows COM interfaces (`IPolicyConfig`).
-  - Fallback integration with NirSoft's **SoundVolumeView** (if placed inside `tools/soundvolumeview/`).
+  - Native Windows COM (`IPolicyConfig`) — no external dependencies needed.
+  - **SoundVolumeView** by NirSoft (optional, for better stability on some setups).
+
+---
+
+### ⬇️ Quick Download (prebuilt EXE)
+
+Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download `AudioRouter.exe`.
+
+> ⚠️ Windows may show a SmartScreen warning. Click **More info → Run anyway**.
+
+---
 
 ### 📋 Requirements
-- Windows 10 or Windows 11
-- Python 3.8+
+- Windows 10 / 11 (64-bit)
+- Python 3.8+ *(only if running from source)*
 
-### 🚀 Installation
+### 🚀 Installation (from source)
+
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/audio_router.git
-   cd audio_router
+   git clone https://github.com/zuc7/Audio_router.git
+   cd Audio_router
    ```
-2. Install the dependencies:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+3. **(Optional but recommended)** Download **SoundVolumeView** from NirSoft:
+   - URL: https://www.nirsoft.net/utils/sound_volume_view.html
+   - Extract `SoundVolumeView.exe` into `tools/soundvolumeview/SoundVolumeView.exe`
 
 ### 💻 Usage
-Run the application using:
 ```bash
 python audio_router_gui.py
 ```
-
-1. Select your target app from the left list (use the top search bar to filter).
-2. Select your target audio playback device from the right list.
+1. Select your target app from the left list (use the search bar to filter).
+2. Select your target playback device from the right list.
 3. Click **Applica Collegamento** (Apply Route).
-4. To reset an app back to your system default playback device, select the app and click **Ripristina Predefinito** (Reset Default).
+4. To reset to the system default, click **Ripristina Predefinito** (Reset Default).
 
 ---
 
