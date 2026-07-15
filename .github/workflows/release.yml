@@ -27,20 +27,38 @@ jobs:
       - name: Build executable
         run: pyinstaller audio_router_gui.spec
 
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer
+        shell: pwsh
+        env:
+          APP_VERSION: ${{ github.ref_name }}
+        run: |
+          $version = $env:APP_VERSION.TrimStart('v')
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAPP_VERSION=$version installer.iss
+          New-Item -ItemType Directory -Force release | Out-Null
+          Copy-Item "release\AudioRouter-Setup.exe" "release\AudioRouter-Setup-$version.exe" -Force
+
       - name: Package portable release
         shell: pwsh
+        env:
+          APP_VERSION: ${{ github.ref_name }}
         run: |
-          New-Item -ItemType Directory -Force release | Out-Null
-          Copy-Item dist\audio_router_gui.exe release\ -Force
-          Compress-Archive -Path release\* -DestinationPath audio_router_gui-portable.zip -Force
+          $version = $env:APP_VERSION.TrimStart('v')
+          New-Item -ItemType Directory -Force portable | Out-Null
+          Copy-Item dist\audio_router_gui.exe portable\AudioRouter.exe -Force
+          Copy-Item audio_router_settings.json portable\audio_router_settings.json -Force
+          Compress-Archive -Path portable\* -DestinationPath "release\AudioRouter-Portable-$version.zip" -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: audio_router_gui-portable
-          path: audio_router_gui-portable.zip
+          name: audio-router-release
+          path: release/*
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: audio_router_gui-portable.zip
+          files: release/*

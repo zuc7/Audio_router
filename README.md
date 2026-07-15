@@ -25,7 +25,7 @@ L'interfaccia grafica è stata costruita con **PySide6 (Qt6)** per garantire sca
 
 ### ⬇️ Download rapido (EXE precompilato)
 
-Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e scarica `AudioRouter.exe`.
+Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e scarica `AudioRouter-Setup.exe` oppure `AudioRouter-Portable.zip`.
 
 > ⚠️ Senza un certificato di code signing valido e con reputazione, Windows può ancora mostrare SmartScreen per qualunque file scaricato da Internet.
 > La soluzione gratuita migliore è scaricare solo la release ufficiale dal repository e, se necessario, usare **Ulteriori informazioni → Esegui comunque** dopo aver verificato la provenienza del file.
@@ -53,7 +53,9 @@ Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e
 
 ### 📦 Release build
 
-Le release GitHub vengono pubblicate come `audio_router_gui-portable.zip` con il binario pronto all'uso.
+Le release GitHub vengono pubblicate in due formati:
+- `AudioRouter-Setup.exe`, installer Windows con collegamento Start Menu e icona desktop opzionale.
+- `AudioRouter-Portable.zip`, archivio leggero con il binario pronto all'uso.
 Questo riduce il packaging superfluo, ma non sostituisce una firma digitale affidabile.
 
 ### 💻 Utilizzo
@@ -88,7 +90,7 @@ The GUI is built with **PySide6 (Qt6)** for automatic DPI scaling, fluid interac
 
 ### ⬇️ Quick Download (prebuilt EXE)
 
-Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download `AudioRouter.exe`.
+Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download `AudioRouter-Setup.exe` or `AudioRouter-Portable.zip`.
 
 > ⚠️ Without a valid code-signing certificate with reputation, Windows can still show SmartScreen for any file downloaded from the internet.
 > The best free option is to download only the official GitHub release and, if needed, use **More info → Run anyway** after verifying the file source.
@@ -116,7 +118,9 @@ Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download
 
 ### 📦 Release build
 
-GitHub releases are published as `audio_router_gui-portable.zip` with the ready-to-run binary.
+GitHub releases are published in two formats:
+- `AudioRouter-Setup.exe`, a Windows installer with Start Menu entry and optional desktop icon.
+- `AudioRouter-Portable.zip`, a lightweight archive with the ready-to-run binary.
 This keeps packaging simple, but it does not replace a trusted digital signature.
 
 ### 💻 Usage
