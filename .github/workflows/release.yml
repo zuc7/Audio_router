@@ -39,7 +39,7 @@ jobs:
           $version = $env:APP_VERSION.TrimStart('v')
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAPP_VERSION=$version installer.iss
           New-Item -ItemType Directory -Force release | Out-Null
-          Copy-Item "release\AudioRouter-Setup.exe" "release\AudioRouter-Setup-$version.exe" -Force
+          Copy-Item "release\AudioRouter-Setup-$version.exe" "release\AudioRouter-Setup.exe" -Force
 
       - name: Package portable release
         shell: pwsh
