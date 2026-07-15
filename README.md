@@ -27,7 +27,8 @@ L'interfaccia grafica è stata costruita con **PySide6 (Qt6)** per garantire sca
 
 Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e scarica `AudioRouter.exe`.
 
-> ⚠️ Windows potrebbe mostrare un avviso SmartScreen. Clicca **Ulteriori informazioni → Esegui comunque**.
+> ⚠️ Senza un certificato di code signing valido e con reputazione, Windows può ancora mostrare SmartScreen per qualunque file scaricato da Internet.
+> La soluzione gratuita migliore è scaricare solo la release ufficiale dal repository e, se necessario, usare **Ulteriori informazioni → Esegui comunque** dopo aver verificato la provenienza del file.
 
 ---
 
@@ -49,6 +50,11 @@ Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e
 3. **(Opzionale ma raccomandato)** Scarica **SoundVolumeView** da NirSoft:
    - Link: https://www.nirsoft.net/utils/sound_volume_view.html
    - Estrai `SoundVolumeView.exe` in `tools/soundvolumeview/SoundVolumeView.exe`
+
+### 📦 Release build
+
+Le release GitHub vengono pubblicate come `audio_router_gui-portable.zip` con il binario pronto all'uso.
+Questo riduce il packaging superfluo, ma non sostituisce una firma digitale affidabile.
 
 ### 💻 Utilizzo
 ```bash
@@ -84,7 +90,8 @@ The GUI is built with **PySide6 (Qt6)** for automatic DPI scaling, fluid interac
 
 Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download `AudioRouter.exe`.
 
-> ⚠️ Windows may show a SmartScreen warning. Click **More info → Run anyway**.
+> ⚠️ Without a valid code-signing certificate with reputation, Windows can still show SmartScreen for any file downloaded from the internet.
+> The best free option is to download only the official GitHub release and, if needed, use **More info → Run anyway** after verifying the file source.
 
 ---
 
@@ -106,6 +113,11 @@ Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download
 3. **(Optional but recommended)** Download **SoundVolumeView** from NirSoft:
    - URL: https://www.nirsoft.net/utils/sound_volume_view.html
    - Extract `SoundVolumeView.exe` into `tools/soundvolumeview/SoundVolumeView.exe`
+
+### 📦 Release build
+
+GitHub releases are published as `audio_router_gui-portable.zip` with the ready-to-run binary.
+This keeps packaging simple, but it does not replace a trusted digital signature.
 
 ### 💻 Usage
 ```bash
