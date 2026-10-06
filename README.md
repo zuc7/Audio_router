@@ -50,6 +50,12 @@ Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e
 3. **(Opzionale ma raccomandato)** Scarica **SoundVolumeView** da NirSoft:
    - Link: https://www.nirsoft.net/utils/sound_volume_view.html
    - Estrai `SoundVolumeView.exe` in `tools/soundvolumeview/SoundVolumeView.exe`
+  IN POWERSHELL:
+  ```bash
+   New-Item -ItemType Directory -Path "tools\soundvolumeview" -Force | 
+   Out-Null; Invoke-WebRequest -Uri "https://www.nirsoft.net/utils/soundvolumeview.zip" -OutFile "$env:TEMP\svv.zip"; 
+   Expand-Archive -Path "$env:TEMP\svv.zip" -DestinationPath "tools\soundvolumeview" -Force; Remove-Item "$env:TEMP\svv.zip"
+   ```
 
 ### 📦 Release build
 
