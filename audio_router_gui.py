@@ -211,6 +211,16 @@ def svv_set_app_default(device_row, pid):
         )
 
 
+def svv_reset_app_default(pid):
+    if not svv_available():
+        raise RuntimeError("SoundVolumeView non disponibile.")
+    subprocess.run(
+        [SVV_EXE, "/SetAppDefault", "DefaultRenderDevice", "all", str(pid)],
+        check=True,
+        capture_output=True,
+    )
+
+
 def svv_get_default_render_row(rows=None):
     for name, row in svv_list_render_devices(rows):
         if (row.get("Default Multimedia") or "").lower() == "yes":
@@ -809,16 +819,12 @@ class AudioRouterGUI(QMainWindow):
         pid, name = app
         try:
             if svv_available():
-                rows = svv_export_rows()
-                default_row = svv_get_default_render_row(rows)
-                if not default_row:
-                    raise RuntimeError("Dispositivo predefinito non trovato.")
-                svv_set_app_default(default_row, pid)
+                svv_reset_app_default(pid)
                 self.statusBar().showMessage(f"↺ Ripristinato: {name} → dispositivo predefinito", 6000)
             else:
                 default_id = get_default_device_id()
                 set_app_endpoint(pid, default_id)
-                self.statusBar().showMessage(f"↺ Ripristinato: {name} → dispositivo predefinito", 6000)
+                self.statusBar().showMessage(f"Impostato sul predefinito attuale: {name}", 6000)
         except Exception as e:
             QMessageBox.critical(self, APP_TITLE, f"Errore durante il ripristino predefinito: {e}")
 
