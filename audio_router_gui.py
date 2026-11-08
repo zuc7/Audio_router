@@ -77,6 +77,7 @@ LOCK_FILE = os.path.join(DATA_DIR, "audio_router.lock")
 
 warnings.filterwarnings("ignore", category=UserWarning, module="pycaw.utils")
 ROLE_LIST = [ERole.eConsole, ERole.eMultimedia, ERole.eCommunications]
+SVV_DISABLED = False
 
 
 def _get_policy_config():
@@ -109,35 +110,33 @@ def get_render_devices():
 
 
 def svv_available():
-    return os.path.exists(SVV_EXE)
+    return not SVV_DISABLED and os.path.exists(SVV_EXE)
 
 
 def svv_export_rows():
-    if not svv_available():
-        return []
+    global SVV_DISABLED
+    if not os.path.exists(SVV_EXE):
+        return None
     out_csv = os.path.join(BASE_DIR, "svv_rows.csv")
     try:
         subprocess.run([SVV_EXE, "/scomma", out_csv], check=True, capture_output=True)
-    except Exception:
-        return []
-    rows = []
-    try:
         with open(out_csv, "r", encoding="utf-8-sig", newline="") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                rows.append(row)
+            rows = list(csv.DictReader(f))
+        if rows:
+            return rows
     except Exception:
         pass
+    SVV_DISABLED = True
     try:
         os.remove(out_csv)
     except Exception:
         pass
-    return rows
+    return None
 
 
 def svv_list_render_devices(rows=None):
     if rows is None:
-        rows = svv_export_rows()
+        rows = svv_export_rows() or []
     render = []
     for row in rows:
         item_type = (row.get("Type") or "").lower()
@@ -172,7 +171,7 @@ def svv_list_render_devices(rows=None):
 
 def svv_list_app_sessions(rows=None):
     if rows is None:
-        rows = svv_export_rows()
+        rows = svv_export_rows() or []
     apps = []
     seen = set()
     for row in rows:
@@ -233,26 +232,29 @@ def svv_get_default_render_row(rows=None):
 def get_sessions():
     if svv_available():
         rows = svv_export_rows()
-        return svv_list_app_sessions(rows), rows
+        if rows is not None:
+            return svv_list_app_sessions(rows), rows
     sessions = []
     try:
         comtypes.CoInitialize()
     except Exception:
         pass
-    for session in AudioUtilities.GetAllSessions():
-        if session.Process is None:
-            continue
-        try:
-            pid = session.ProcessId
-            proc = psutil.Process(pid)
-            name = proc.name()
-            sessions.append((pid, name))
-        except Exception:
-            continue
     try:
-        comtypes.CoUninitialize()
+        for session in AudioUtilities.GetAllSessions():
+            if session.Process is None:
+                continue
+            try:
+                pid = session.ProcessId
+                sessions.append((pid, psutil.Process(pid).name()))
+            except Exception:
+                continue
     except Exception:
         pass
+    finally:
+        try:
+            comtypes.CoUninitialize()
+        except Exception:
+            pass
     return sessions, None
 
 
@@ -314,6 +316,7 @@ class AudioRouterGUI(QMainWindow):
         self.refresh_lists()
         
         self._last_session_ids = {pid for pid, _ in self.apps}
+        self._last_svv_available = svv_available()
         
         self._load_window_state()
         self._set_app_icon()
@@ -632,7 +635,7 @@ class AudioRouterGUI(QMainWindow):
         devices = []
         dev_labels = []
         
-        if svv_available():
+        if shared_rows is not None:
             default_row = svv_get_default_render_row(shared_rows)
             default_id = None
             if default_row:
@@ -678,7 +681,9 @@ class AudioRouterGUI(QMainWindow):
         try:
             current_sessions, _ = get_sessions()
             current = {pid for pid, _ in current_sessions}
-            if current != self._last_session_ids:
+            backend_changed = self._last_svv_available != svv_available()
+            if current != self._last_session_ids or backend_changed:
+                self._last_svv_available = svv_available()
                 self._last_session_ids = current
                 self.refresh_lists()
         except Exception:
@@ -796,7 +801,7 @@ class AudioRouterGUI(QMainWindow):
             return
         pid, name = app
         try:
-            if svv_available():
+            if isinstance(dev, dict):
                 device_name = dev.get("Device Name") or dev.get("Name")
                 if not device_name:
                     raise RuntimeError("Nome dispositivo non valido.")
