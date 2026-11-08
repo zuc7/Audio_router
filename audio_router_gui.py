@@ -300,8 +300,8 @@ class AudioRouterGUI(QMainWindow):
             pass
 
         self.setWindowTitle(APP_TITLE)
-        self.resize(800, 520)
-        self.setMinimumSize(640, 420)
+        self.resize(920, 600)
+        self.setMinimumSize(760, 520)
 
         self.apps = []
         self.devices = []
@@ -326,105 +326,102 @@ class AudioRouterGUI(QMainWindow):
     def _setup_style(self):
         self.setStyleSheet("""
             QMainWindow {
-                background-color: #121212;
+                background-color: #141415;
             }
             QFrame.CardFrame {
-                background-color: #1e1e1e;
-                border: 1px solid #2d2d2d;
-                border-radius: 10px;
+                background-color: #19191b;
+                border: 1px solid #303034;
+                border-radius: 12px;
             }
             QLabel {
-                color: #e6e6e6;
-                font-family: 'Segoe UI', Arial, sans-serif;
+                color: #ededed;
+                font-family: 'Segoe UI', sans-serif;
             }
             QLineEdit {
-                background-color: #1e1e1e;
-                color: #ffffff;
-                border: 1px solid #2d2d2d;
+                background-color: #232325;
+                color: #ededed;
+                border: 1px solid #303034;
                 border-radius: 8px;
-                padding: 10px 14px;
-                font-size: 13px;
+                padding: 0 12px;
+                min-height: 40px;
+                font-size: 14px;
             }
             QLineEdit:focus {
-                border: 1px solid #0078d4;
-                background-color: #252525;
+                border-color: #3288b8;
             }
             QListWidget {
-                background-color: #151515;
-                border: 1px solid #2d2d2d;
+                background-color: #141415;
+                border: 1px solid #303034;
                 border-radius: 8px;
                 outline: 0;
                 padding: 4px;
             }
+            QListWidget:focus { border-color: #3288b8; }
             QListWidget::item {
-                color: #e6e6e6;
-                padding: 10px 12px;
+                color: #d8d8dc;
+                padding: 8px 12px;
                 border-radius: 6px;
                 margin: 2px 4px;
-                font-size: 13px;
-                font-weight: bold;
+                font-size: 14px;
             }
             QListWidget::item:hover {
-                background-color: #252525;
-                color: #ffffff;
+                background-color: #232325;
+                color: #ededed;
             }
             QListWidget::item:selected {
-                background-color: #0078d4;
+                background-color: #18577d;
                 color: #ffffff;
             }
             QPushButton {
-                background-color: #282828;
-                color: #ffffff;
-                border: 1px solid #3d3d3d;
+                background-color: #232325;
+                color: #ededed;
+                border: 1px solid #38383d;
                 border-radius: 8px;
-                padding: 10px 22px;
-                font-size: 13px;
-                font-weight: bold;
-                min-width: 120px;
+                padding: 0 16px;
+                min-height: 40px;
+                font-size: 14px;
             }
             QPushButton:hover {
-                background-color: #353535;
-                border: 1px solid #4d4d4d;
+                background-color: #2b2b2e;
+                border-color: #4a4a50;
             }
             QPushButton:pressed {
-                background-color: #1c1c1c;
+                background-color: #1c1c1e;
             }
             QPushButton#primaryBtn {
-                background-color: #0078d4;
-                border: 1px solid #005a9e;
+                background-color: #e5e9ed;
+                color: #171719;
+                border-color: #e5e9ed;
             }
             QPushButton#primaryBtn:hover {
-                background-color: #1084ea;
+                background-color: #ffffff;
             }
             QPushButton#primaryBtn:pressed {
-                background-color: #005a9e;
+                background-color: #d2d6da;
             }
             QScrollBar:vertical {
                 border: none;
-                background: #151515;
+                background: #141415;
                 width: 8px;
                 margin: 0px;
                 border-radius: 4px;
             }
             QScrollBar::handle:vertical {
-                background: #444444;
+                background: #45454a;
                 min-height: 20px;
                 border-radius: 4px;
-            }
-            QScrollBar::handle:vertical:hover {
-                background: #555555;
             }
             QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
                 border: none;
                 background: none;
             }
             QStatusBar {
-                background-color: #121212;
-                color: #94a1b2;
-                border-top: 1px solid #2d2d2d;
+                background-color: #141415;
+                color: #a1a1a6;
+                border-top: 1px solid #303034;
             }
             QSplitter::handle {
-                background-color: #2d2d2d;
+                background-color: #303034;
             }
             QSplitter::handle:horizontal {
                 width: 4px;
@@ -436,19 +433,19 @@ class AudioRouterGUI(QMainWindow):
         central = QWidget()
         self.setCentralWidget(central)
         main_layout = QVBoxLayout(central)
-        main_layout.setContentsMargins(18, 18, 18, 12)
-        main_layout.setSpacing(14)
+        main_layout.setContentsMargins(24, 24, 24, 16)
+        main_layout.setSpacing(16)
 
         # Header area
         header_layout = QHBoxLayout()
         title_container = QVBoxLayout()
-        title_container.setSpacing(2)
+        title_container.setSpacing(4)
         
         self.title_lbl = QLabel(APP_TITLE)
-        self.title_lbl.setStyleSheet("font-size: 22px; font-weight: bold; color: #ffffff;")
+        self.title_lbl.setStyleSheet("font-size: 22px; font-weight: 600; color: #ededed;")
         
-        self.subtitle_lbl = QLabel("Indirizza l'audio delle applicazioni a dispositivi di riproduzione diversi.")
-        self.subtitle_lbl.setStyleSheet("font-size: 12px; color: #9aa0a6;")
+        self.subtitle_lbl = QLabel("Assegna a ogni app il dispositivo di uscita audio")
+        self.subtitle_lbl.setStyleSheet("font-size: 13px; color: #a1a1a6;")
         
         title_container.addWidget(self.title_lbl)
         title_container.addWidget(self.subtitle_lbl)
@@ -456,14 +453,14 @@ class AudioRouterGUI(QMainWindow):
         header_layout.addStretch()
 
         self.refresh_btn = QPushButton("Aggiorna")
-        self.refresh_btn.setFixedWidth(100)
+        self.refresh_btn.setFixedWidth(104)
         self.refresh_btn.clicked.connect(self.refresh_lists)
         header_layout.addWidget(self.refresh_btn)
         main_layout.addLayout(header_layout)
 
         # Search Bar
         self.search_bar = QLineEdit()
-        self.search_bar.setPlaceholderText("Cerca tra le applicazioni attive...")
+        self.search_bar.setPlaceholderText("Cerca app")
         self.search_bar.textChanged.connect(self.filter_apps)
         main_layout.addWidget(self.search_bar)
 
@@ -475,11 +472,11 @@ class AudioRouterGUI(QMainWindow):
         app_frame.setObjectName("cardFrame")
         app_frame.setProperty("class", "CardFrame")
         app_layout = QVBoxLayout(app_frame)
-        app_layout.setContentsMargins(12, 12, 12, 12)
-        app_layout.setSpacing(10)
+        app_layout.setContentsMargins(16, 16, 16, 16)
+        app_layout.setSpacing(8)
         
-        app_title = QLabel("Applicazioni Attive")
-        app_title.setStyleSheet("font-size: 14px; font-weight: bold; color: #ffffff;")
+        app_title = QLabel("Applicazioni attive")
+        app_title.setStyleSheet("font-size: 14px; font-weight: 500; color: #ededed;")
         app_layout.addWidget(app_title)
         
         self.app_list = QListWidget()
@@ -492,11 +489,11 @@ class AudioRouterGUI(QMainWindow):
         dev_frame.setObjectName("cardFrame")
         dev_frame.setProperty("class", "CardFrame")
         dev_layout = QVBoxLayout(dev_frame)
-        dev_layout.setContentsMargins(12, 12, 12, 12)
-        dev_layout.setSpacing(10)
+        dev_layout.setContentsMargins(16, 16, 16, 16)
+        dev_layout.setSpacing(8)
         
-        dev_title = QLabel("Dispositivi di Riproduzione")
-        dev_title.setStyleSheet("font-size: 14px; font-weight: bold; color: #ffffff;")
+        dev_title = QLabel("Dispositivi di riproduzione")
+        dev_title.setStyleSheet("font-size: 14px; font-weight: 500; color: #ededed;")
         dev_layout.addWidget(dev_title)
         
         self.dev_list = QListWidget()
@@ -508,14 +505,14 @@ class AudioRouterGUI(QMainWindow):
 
         # Actions buttons
         actions_layout = QHBoxLayout()
-        actions_layout.setSpacing(12)
+        actions_layout.setSpacing(8)
         actions_layout.addStretch()
         
-        self.reset_btn = QPushButton("Ripristina Predefinito")
+        self.reset_btn = QPushButton("Usa predefinito")
         self.reset_btn.clicked.connect(self.reset_route)
         actions_layout.addWidget(self.reset_btn)
         
-        self.apply_btn = QPushButton("Applica Collegamento")
+        self.apply_btn = QPushButton("Applica uscita")
         self.apply_btn.setObjectName("primaryBtn")
         self.apply_btn.clicked.connect(self.apply_route)
         actions_layout.addWidget(self.apply_btn)
@@ -804,10 +801,10 @@ class AudioRouterGUI(QMainWindow):
                 if not device_name:
                     raise RuntimeError("Nome dispositivo non valido.")
                 svv_set_app_default(dev, pid)
-                self.statusBar().showMessage(f"✓ Collegato: {name} → {device_name}", 6000)
+                self.statusBar().showMessage(f"Instradamento: {name} → {device_name}", 6000)
             else:
                 set_app_endpoint(pid, dev.id)
-                self.statusBar().showMessage(f"✓ Collegato: {name} → {getattr(dev, 'FriendlyName', dev.id)}", 6000)
+                self.statusBar().showMessage(f"Instradamento: {name} → {getattr(dev, 'FriendlyName', dev.id)}", 6000)
         except Exception as e:
             QMessageBox.critical(self, APP_TITLE, f"Errore durante il collegamento audio: {e}")
 
@@ -820,7 +817,7 @@ class AudioRouterGUI(QMainWindow):
         try:
             if svv_available():
                 svv_reset_app_default(pid)
-                self.statusBar().showMessage(f"↺ Ripristinato: {name} → dispositivo predefinito", 6000)
+                self.statusBar().showMessage(f"Predefinito di sistema: {name}", 6000)
             else:
                 default_id = get_default_device_id()
                 set_app_endpoint(pid, default_id)
