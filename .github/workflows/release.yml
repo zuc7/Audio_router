@@ -40,11 +40,14 @@ jobs:
         env:
           APP_VERSION: ${{ github.ref_name }}
         run: |
-          $version = $env:APP_VERSION.TrimStart('v')
+          $version = $env:APP_VERSION -replace '^v', ''
           $parts = @($version.Split('.') | ForEach-Object { [int]$_ })
           while ($parts.Count -lt 4) { $parts += 0 }
           $versionInfo = $parts[0..3] -join '.'
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAPP_VERSION=$version" "/DAPP_VERSION_INFO=$versionInfo" installer.iss
+          $env:APP_VERSION = $version
+          $env:APP_VERSION_INFO = $versionInfo
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
           New-Item -ItemType Directory -Force release | Out-Null
           Copy-Item "release\AudioRouter-Setup-$version.exe" "release\AudioRouter-Setup.exe" -Force
           Get-FileHash "release\AudioRouter-Setup.exe" -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  AudioRouter-Setup.exe" } | Set-Content release\SHA256SUMS.txt
