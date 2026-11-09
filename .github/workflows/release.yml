@@ -4,11 +4,12 @@ on:
   push:
     tags:
       - "v*"
-  workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -24,8 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run checks
+        run: python -m unittest discover -s tests -p "test_*.py"
+
       - name: Build executable
-        run: pyinstaller audio_router_gui.spec
+        run: pyinstaller --noconfirm --clean --onefile --windowed --name audio_router_gui --icon app.ico audio_router_gui.py
 
       - name: Install Inno Setup
         shell: pwsh
@@ -37,9 +41,13 @@ jobs:
           APP_VERSION: ${{ github.ref_name }}
         run: |
           $version = $env:APP_VERSION.TrimStart('v')
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAPP_VERSION=$version installer.iss
+          $parts = @($version.Split('.') | ForEach-Object { [int]$_ })
+          while ($parts.Count -lt 4) { $parts += 0 }
+          $versionInfo = $parts[0..3] -join '.'
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAPP_VERSION=$version" "/DAPP_VERSION_INFO=$versionInfo" installer.iss
           New-Item -ItemType Directory -Force release | Out-Null
           Copy-Item "release\AudioRouter-Setup-$version.exe" "release\AudioRouter-Setup.exe" -Force
+          Get-FileHash "release\AudioRouter-Setup.exe" -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  AudioRouter-Setup.exe" } | Set-Content release\SHA256SUMS.txt
 
       - name: Package portable release
         shell: pwsh
@@ -49,8 +57,9 @@ jobs:
           $version = $env:APP_VERSION.TrimStart('v')
           New-Item -ItemType Directory -Force portable | Out-Null
           Copy-Item dist\audio_router_gui.exe portable\AudioRouter.exe -Force
-          Copy-Item audio_router_settings.json portable\audio_router_settings.json -Force
+          Copy-Item app.ico portable\app.ico -Force
           Compress-Archive -Path portable\* -DestinationPath "release\AudioRouter-Portable-$version.zip" -Force
+          Get-FileHash "release\AudioRouter-Portable-$version.zip" -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  AudioRouter-Portable-$version.zip" } | Add-Content release\SHA256SUMS.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -62,3 +71,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: release/*
+          name: Audio Router ${{ github.ref_name }}
+          body_path: CHANGELOG.md

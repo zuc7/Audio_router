@@ -1,5 +1,6 @@
 #define AppName "Audio Router"
 #define AppVersion GetEnv("APP_VERSION")
+#define AppVersionInfo GetEnv("APP_VERSION_INFO")
 #define AppExeName "audio_router_gui.exe"
 #define AppPublisher "zuc7"
 
@@ -10,7 +11,8 @@ AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 AppCopyright=Copyright (C) 2026 {#AppPublisher}
 AppComments=Route audio for Windows apps with a clean Windows installer.
-VersionInfoVersion={#AppVersion}
+LicenseFile=LICENSE
+VersionInfoVersion={#AppVersionInfo}
 VersionInfoTextVersion={#AppVersion}
 DefaultDirName={autopf}\Audio Router
 DefaultGroupName=Audio Router
@@ -24,7 +26,7 @@ UninstallDisplayIcon={app}\{#AppExeName}
 
 [Files]
 Source: "dist\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "audio_router_settings.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "app.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Audio Router"; Filename: "{app}\{#AppExeName}"

@@ -1,5 +1,11 @@
 # Audio App Router 🎧
 
+Route each running Windows app to a different audio output device.
+
+![Audio Router demo](docs/demo.gif)
+
+[Watch the demo](docs/demo.gif) · [Download the latest Windows installer](https://github.com/zuc7/Audio_router/releases/latest)
+
 [Italiano](#italiano) | [English](#english)
 
 ---
@@ -23,7 +29,15 @@ L'interfaccia grafica è stata costruita con **PySide6 (Qt6)** per garantire sca
 
 ---
 
-### ⬇️ Download rapido (EXE precompilato)
+### ⬇️ Installazione rapida (Windows)
+
+```powershell
+irm https://raw.githubusercontent.com/zuc7/Audio_router/main/install.ps1 | iex
+```
+
+The installer is downloaded from the official GitHub release and checked against its SHA-256 checksum before it starts.
+
+### ⬇️ Download manuale
 
 Vai alla sezione [**Releases**](https://github.com/zuc7/Audio_router/releases) e scarica `AudioRouter-Setup.exe` oppure `AudioRouter-Portable.zip`.
 
@@ -94,7 +108,15 @@ The GUI is built with **PySide6 (Qt6)** for automatic DPI scaling, fluid interac
 
 ---
 
-### ⬇️ Quick Download (prebuilt EXE)
+### ⬇️ Quick Install (Windows)
+
+```powershell
+irm https://raw.githubusercontent.com/zuc7/Audio_router/main/install.ps1 | iex
+```
+
+The installer comes from the official GitHub release and is checked against its SHA-256 checksum before it starts.
+
+### ⬇️ Manual Download
 
 Go to [**Releases**](https://github.com/zuc7/Audio_router/releases) and download `AudioRouter-Setup.exe` or `AudioRouter-Portable.zip`.
 
