@@ -1,13 +1,13 @@
-# Show HN draft — Show HN: Audio Router – Route Windows apps to separate audio devices
+# Show HN post
 
-**Post title:** Show HN: Audio Router – Route Windows apps to separate audio devices
+**Title:** Show HN: Audio Router — per-app audio routing for Windows
 
-**Post text:**
+**Link:** https://github.com/zuc7/Audio_router
 
-I built a small open-source Windows utility for routing individual apps to different audio outputs. It uses Windows' per-application audio routing through COM, with optional SoundVolumeView support. The app is written in Python/PySide6 and ships as an installer and portable build.
+**Text:**
 
-I made it because moving a game, call, or music player between headphones and speakers should not require changing the system-wide output. It is still early, so reports about Windows compatibility and device setups are especially useful.
+I built Audio Router because I wanted to send a call, music, and a game to different audio outputs without changing Windows' system-wide output each time.
 
-GitHub: https://github.com/zuc7/Audio_router
+It is a small Windows 10/11 app. It uses Windows COM for per-app routing and can optionally use SoundVolumeView. The latest release has an installer and a portable build: https://github.com/zuc7/Audio_router/releases/latest
 
-**Before posting:** wait until the tagged release and checksum-verified installer are available; replace the link with a direct demo or release if helpful. Do not post this draft automatically.
+It is early, so feedback about different audio devices and virtual cables would be useful. I can answer questions here.
